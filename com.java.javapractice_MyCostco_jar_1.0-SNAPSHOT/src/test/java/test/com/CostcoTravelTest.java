@@ -45,8 +45,11 @@ public class CostcoTravelTest {
     public void setUpMethod() throws Exception {
     System.setProperty("webdriver.chrome.driver", "c:\\data\\chromedriver.exe");
     driver = new ChromeDriver();
-    baseUrl = "https://www.google.com/";
-    driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);  // implicit wait// it wait until 30 sec
+    ChromeOptions options = new ChromeOptions(); 
+    options.addArguments("--headless"); 
+    options.addArguments("--disable-gpu"); 
+    options.addArguments("--window-size=1400,800");
+    WebDriver driver = new ChromeDriver(options);
     }
 
     @AfterMethod
@@ -59,13 +62,16 @@ public class CostcoTravelTest {
     @Test
      public void testTravel() throws Exception {
       
-    driver.manage().window().maximize();
+   driver.manage().window().maximize();
     driver.get("https://www.costco.com/");
     WebElement elem1 = driver.findElement(By.xpath("//*[@id=\"Home_Ancillary_8\"]"));
         Actions act = new Actions(driver);
         Action a1 = act.moveToElement(elem1).build();
         a1.perform();  
-    driver.findElement(By.linkText("Vacation Packages")).click();
+        
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Vacation Packages"))).click();
+
     driver.get("https://www.costcotravel.com/Vacation-Packages?utm_source=costco.com&utm_medium=fly_down&utm_campaign=vp&utm_term=Vacation-Packages&utm_content=20211206");
     driver.findElement(By.id("vacation_package_destination")).click();
     new Select(driver.findElement(By.id("vacation_package_destination"))).selectByVisibleText("Fiji");
