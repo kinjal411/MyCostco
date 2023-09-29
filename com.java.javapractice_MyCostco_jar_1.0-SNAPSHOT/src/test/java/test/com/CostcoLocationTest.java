@@ -27,12 +27,6 @@ public class CostcoLocationTest {
     public CostcoLocationTest() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -45,7 +39,7 @@ public class CostcoLocationTest {
     public void setUpMethod() throws Exception {
         
     System.setProperty("webdriver.chrome.driver", "c:\\data\\chromedriver.exe");
-    driver = new ChromeDriver();
+   // driver = new ChromeDriver();
     ChromeOptions options = new ChromeOptions(); 
     options.addArguments("--headless"); 
     options.addArguments("--disable-gpu"); 
