@@ -45,7 +45,11 @@ public class CostcoProductTest {
         
     System.setProperty("webdriver.chrome.driver", "c:\\data\\chromedriver.exe");
     driver = new ChromeDriver();
-    baseUrl = "https://www.google.com/";
+    ChromeOptions options = new ChromeOptions(); 
+    options.addArguments("--headless"); 
+    options.addArguments("--disable-gpu"); 
+    options.addArguments("--window-size=1400,800");
+    WebDriver driver = new ChromeDriver(options);
     }
 
     @AfterMethod
