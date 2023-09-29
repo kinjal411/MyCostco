@@ -42,8 +42,12 @@ public CostcoDealTest() {
     public void setUpMethod() throws Exception {
     System.setProperty("webdriver.chrome.driver", "c:\\data\\chromedriver.exe");
     driver = new ChromeDriver();
-    baseUrl = "https://www.google.com/";
-    driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);  // implicit wait// it wait until 30 sec
+    
+    ChromeOptions options = new ChromeOptions(); 
+    options.addArguments("--headless"); 
+    options.addArguments("--disable-gpu"); 
+    options.addArguments("--window-size=1400,800");
+    WebDriver driver = new ChromeDriver(options);
 
     }
 
@@ -56,15 +60,15 @@ public CostcoDealTest() {
   public void testDeal() throws Exception {
       
     driver.manage().window().maximize();
- // implicit wait condition
     driver.get("https://www.costco.com/");
     
     WebElement elem1 = driver.findElement(By.xpath("//*[@id=\"Home_Ancillary_2\"]"));
         Actions act = new Actions(driver);
         Action a1 = act.moveToElement(elem1).build();
         a1.perform();
-        
-    driver.findElement(By.linkText("Home & Kitchen")).click();
+    WebDriverWait wait = new WebDriverWait(driver, 30);
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Home & Kitchen"))).click();
+   
     driver.findElement(By.xpath("//div[@id='WC_ContentAreaESpot_div_1_ProductsSpotlight']/div[2]/ul/li/div[2]/a/div")).click();
     driver.findElement(By.xpath("//img[@alt='Barcalounger Bradford Executive Office Chair']")).click();
     driver.findElement(By.id("__richfx_id_0_2_1790176_850889_2")).click();
