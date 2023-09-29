@@ -46,7 +46,11 @@ public class CostcoLocationTest {
         
     System.setProperty("webdriver.chrome.driver", "c:\\data\\chromedriver.exe");
     driver = new ChromeDriver();
-    baseUrl = "https://www.google.com/";    
+    ChromeOptions options = new ChromeOptions(); 
+    options.addArguments("--headless"); 
+    options.addArguments("--disable-gpu"); 
+    options.addArguments("--window-size=1400,800");
+    WebDriver driver = new ChromeDriver(options);   
     }
 
     @AfterMethod
@@ -54,16 +58,6 @@ public class CostcoLocationTest {
         Thread.sleep(3000);
         driver.close();
     }
-    
-//    @Test
-//    public void testLocSearch() throws Exception {
-//    driver.manage().window().maximize();
-//    driver.get("https://www.costco.com/");
-//    driver.findElement(By.linkText("Locations")).click();
-//    driver.findElement(By.id("search-warehouse")).click();
-//    driver.findElement(By.id("search-warehouse")).clear();
-//    driver.findElement(By.id("search-warehouse")).sendKeys("schaumburg");
-//    driver.findElement(By.id("search-warehouse")).sendKeys(Keys.ENTER);
     
     @Test
   public void testCostco() throws Exception {
