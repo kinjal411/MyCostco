@@ -48,8 +48,11 @@ public class CostcoOpticalTest {
     public void setUpMethod() throws Exception {
     System.setProperty("webdriver.chrome.driver", "c:\\data\\chromedriver.exe");
     driver = new ChromeDriver();
-    baseUrl = "https://www.google.com/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);  // implicit wait// it wait until 30 sec
+    ChromeOptions options = new ChromeOptions(); 
+    options.addArguments("--headless"); 
+    options.addArguments("--disable-gpu"); 
+    options.addArguments("--window-size=1400,800");
+    WebDriver driver = new ChromeDriver(options);
     
     }
 
@@ -62,43 +65,22 @@ public class CostcoOpticalTest {
      @Test
   public void testUntitledTestCase() throws Exception {
     
-    driver.manage().window().maximize();
+  driver.manage().window().maximize();
     driver.get("https://www.costco.com/");
     WebElement elem1 = driver.findElement(By.xpath("//*[@id=\"Home_Ancillary_4\"]"));
         Actions act = new Actions(driver);
         Action a1 = act.moveToElement(elem1).build();
-        a1.perform();  
+        a1.perform(); 
+        
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Shop Optical")));
+
     driver.findElement(By.linkText("Shop Optical")).click();
     driver.findElement(By.linkText("Shop Eyeglasses")).click();
     driver.get("https://glasses.costco.com/");
     driver.findElement(By.linkText("Shop Your Style")).click();
     driver.findElement(By.xpath("//*[@id=\"color-fieldset\"]/ul/li[11]/label"));
-    driver.findElement(By.xpath("/html/body/div[1]/section/div/div/div/div/div[4]/div[11]/h2/a")).click();
-    
-    
-    
-//    driver.get("https://glasses.costco.com/Shop/Frame/kirkland-signature-luke/blue");
-//    driver.findElement(By.xpath("/html/body/div[1]/section/div/div[1]/div/div[2]/button")).click();
-//    driver.get("https://glasses.costco.com/Shop/Frame/kirkland-signature-luke/blue/VisionType");
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/form/fieldset/div/div/div[1]/div[1]/div/label/span")).click();
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/form/fieldset/div/div/input")).click();
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/form/fieldset/div/div/div[2]/div[1]/div/label/span")).click();
-//    
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/form/fieldset/div/input")).click();
-//    
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/form/fieldset/div/div/div[1]/div[1]/div[1]/label/span")).click();
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/form/fieldset/div/input")).click();
-//   
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/form/fieldset/div/div/div[1]/div[1]/div[1]/label/span")).click();
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/form/fieldset/div/input")).click();
-//    driver.findElement(By.xpath("//*[@id=\"rx-container-inner\"]/div[1]/div[2]/a")).click();
-
-
-    
-    
-    
-    
-    
+    driver.findElement(By.xpath("/html/body/div[1]/section/div/div/div/div/div[4]/div[11]/h2/a")).click();  
    
   }
 
